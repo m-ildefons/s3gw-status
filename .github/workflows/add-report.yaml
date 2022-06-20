@@ -1,0 +1,32 @@
+---
+name: Add Test Report
+on:
+  workflow_call:
+    inputs:
+      artifact_id:
+        description: Artifact ID for the uploaded test report
+        required: true
+
+jobs:
+  add-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout S3GW Core
+        uses: actions/checkout@v3
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact_id }}
+          path: results/s3tests
+
+      - name: Commit new Artifact
+        run: |
+          ls -la results/s3tests
+          git status
+
+          # pushd s3gw-status
+          # git add results/s3tests
+          # git commit -m "results/s3tests: report ${{ inputs.artifact_id }}" -S -s
+          # git push
