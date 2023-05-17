@@ -31,6 +31,8 @@ export type S3Test = {
 export type S3GWTestResult = {
   name: string;
   url: string;
+  git_ref: string;
+  description: string;
   tests: S3Test[];
 };
 
@@ -56,6 +58,7 @@ export class ResultsService {
         results.forEach((entry: GithubResultDesc) => {
           this.obtainResult(entry);
         });
+        results.sort((a, b) => (a.name < b.name ? -1 : 1));
       }
     });
   }

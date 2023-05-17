@@ -29,9 +29,10 @@
         <thead>
           <tr>
             <th scope="col">Name</th>
-            <th scope="col">Url</th>
+            <th scope="col">Git Ref</th>
+            <th scope="col">Description</th>
             <th scope="col">Success</th>
-            <th scope="col">Failed</th>
+            <th scope="col">Failure</th>
           </tr>
         </thead>
         <tbody>
@@ -39,9 +40,11 @@
               (click)="selectResult(result, resultsContent)"
           >
             <td>{{result.name}}</td>
-            <td>{{result.url}}</td>
+            <td>{{result.git_ref}}</td>
+            <td>{{result.description}}</td>
             <td>{{result.tests | success }}</td>
             <td>{{result.tests | failure }}</td>
+            <td><a href="https://lite.datasette.io/?json=https://raw.githubusercontent.com/aquarist-labs/s3gw-status/main/results/s3tests/{{result.name}}#/data">Analyze</a><td>
           </tr>
         </tbody>
       </table>
@@ -74,7 +77,7 @@
               (click)="toggleExpand('failed')"
               style="margin-left: 1rem"
       >
-        Failed ({{selectedResult?.tests | failure}})
+        Failure ({{selectedResult?.tests | failure}})
       </button>
     </p>
 
